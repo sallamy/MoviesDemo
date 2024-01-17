@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import SDWebImage
 
 class MovieTableViewCell: UITableViewCell {
     static let idenetifier = "MovieTableViewCell"
@@ -73,17 +73,17 @@ class MovieTableViewCell: UITableViewCell {
     func setupData(model: Movie){
         titleLabel.text = model.title
         dateLabel.text = model.releaseDate
-//        if let photoURL =  URL(string: model.poster){
-//            self.indicatorView.startAnimating()
-//            self.indicatorView.isHidden = false
-//            self.moviePosterImageView.sd_setImage(with: photoURL) { [weak self] image, error, type, url in
-//                guard let self = self else {  return}
-//                if (error != nil) {
-//                    print("errrrror")
-//                }
-//                self.indicatorView.stopAnimating()
-//                self.indicatorView.isHidden = true
-//            }
-//        }
+        if let photo = model.poster , let url =  URL(string: "https://image.tmdb.org/t/p/original" + photo ){
+            self.indicatorView.startAnimating()
+            self.indicatorView.isHidden = false
+            self.moviePosterImageView.sd_setImage(with: url) { [weak self] image, error, type, url in
+                guard let self = self else {  return}
+                if (error != nil) {
+                    print("errrrror")
+                }
+                self.indicatorView.stopAnimating()
+                self.indicatorView.isHidden = true
+            }
+        }
     }
 }

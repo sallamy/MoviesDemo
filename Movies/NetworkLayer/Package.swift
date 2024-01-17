@@ -4,23 +4,26 @@
 import PackageDescription
 
 let package = Package(
-    name: "MovieModule",
+    name: "NetworkLayer",
     platforms: [
-           .iOS(.v14), .macOS(.v10_15)
-       ],
+        .iOS(.v14), .macOS(.v10_15)
+    ],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
-            name: "MovieModule",
-            targets: ["MovieModule"]),
+            name: "NetworkLayer",
+            targets: ["NetworkLayer"]),
     ],
+    
+  
+    
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "MovieModule"),
+            name: "NetworkLayer"),
         .testTarget(
-            name: "MovieModuleTests",
-            dependencies: ["MovieModule"]),
+            name: "NetworkLayerTests",
+            dependencies: ["NetworkLayer"]),
     ]
 )

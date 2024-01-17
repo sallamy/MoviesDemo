@@ -12,7 +12,6 @@
 		FF2230722B56DB7D00E6A25E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF2230702B56DB7D00E6A25E /* LaunchScreen.storyboard */; };
 		FF22307D2B56DB7D00E6A25E /* MoviesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF22307C2B56DB7D00E6A25E /* MoviesTests.swift */; };
 		FF2230B82B57290500E6A25E /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2230B72B57290500E6A25E /* Constant.swift */; };
-		FF2230C12B5753A300E6A25E /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = FF2230C02B5753A300E6A25E /* SDWebImage */; };
 		FF2230C52B57568900E6A25E /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = FF2230C42B57568900E6A25E /* Swinject */; };
 		FF2230C72B57672600E6A25E /* ContainerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2230C62B57672600E6A25E /* ContainerManager.swift */; };
 		FFD9A9132B576BD8004C21AA /* MovieModule in Frameworks */ = {isa = PBXBuildFile; productRef = FFD9A9122B576BD8004C21AA /* MovieModule */; };
@@ -62,7 +61,6 @@
 				FFD9A9132B576BD8004C21AA /* MovieModule in Frameworks */,
 				FFD9A9152B576BD8004C21AA /* NetworkLayer in Frameworks */,
 				FF2230C52B57568900E6A25E /* Swinject in Frameworks */,
-				FF2230C12B5753A300E6A25E /* SDWebImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +81,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FF01A5F02B577DE100D19171 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				FF2230652B56DB7900E6A25E /* AppDelegate.swift */,
+				FF2230C62B57672600E6A25E /* ContainerManager.swift */,
+				FF2230B72B57290500E6A25E /* Constant.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		FF01A5F12B577E0000D19171 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				FF22306E2B56DB7D00E6A25E /* Assets.xcassets */,
+				FF2230702B56DB7D00E6A25E /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		FF2230592B56DB7900E6A25E = {
 			isa = PBXGroup;
 			children = (
@@ -106,15 +123,12 @@
 		FF2230642B56DB7900E6A25E /* Movies */ = {
 			isa = PBXGroup;
 			children = (
+				FF01A5F02B577DE100D19171 /* App */,
 				FFD9A90D2B576B1E004C21AA /* CoreUIComponent */,
 				FFD9A90B2B576B1E004C21AA /* MovieModule */,
 				FFD9A90C2B576B1E004C21AA /* NetworkLayer */,
-				FF2230652B56DB7900E6A25E /* AppDelegate.swift */,
-				FF2230C62B57672600E6A25E /* ContainerManager.swift */,
-				FF2230B72B57290500E6A25E /* Constant.swift */,
-				FF22306E2B56DB7D00E6A25E /* Assets.xcassets */,
-				FF2230702B56DB7D00E6A25E /* LaunchScreen.storyboard */,
 				FF2230732B56DB7D00E6A25E /* Info.plist */,
+				FF01A5F12B577E0000D19171 /* Resources */,
 			);
 			path = Movies;
 			sourceTree = "<group>";
@@ -151,7 +165,6 @@
 			);
 			name = Movies;
 			packageProductDependencies = (
-				FF2230C02B5753A300E6A25E /* SDWebImage */,
 				FF2230C42B57568900E6A25E /* Swinject */,
 				FFD9A9122B576BD8004C21AA /* MovieModule */,
 				FFD9A9142B576BD8004C21AA /* NetworkLayer */,
@@ -231,7 +244,6 @@
 			mainGroup = FF2230592B56DB7900E6A25E;
 			packageReferences = (
 				FF2230AA2B56DEBD00E6A25E /* XCRemoteSwiftPackageReference "Swinject" */,
-				FF2230BF2B57522900E6A25E /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = FF2230632B56DB7900E6A25E /* Products */;
 			projectDirPath = "";
@@ -618,22 +630,9 @@
 				minimumVersion = 2.8.4;
 			};
 		};
-		FF2230BF2B57522900E6A25E /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.18.10;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		FF2230C02B5753A300E6A25E /* SDWebImage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = FF2230BF2B57522900E6A25E /* XCRemoteSwiftPackageReference "SDWebImage" */;
-			productName = SDWebImage;
-		};
 		FF2230C42B57568900E6A25E /* Swinject */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FF2230AA2B56DEBD00E6A25E /* XCRemoteSwiftPackageReference "Swinject" */;
