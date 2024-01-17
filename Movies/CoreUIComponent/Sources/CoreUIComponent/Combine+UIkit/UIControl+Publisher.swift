@@ -1,9 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by BM - Ahmed M. Hassan on 05/01/2023.
-//
 
 import Combine
 import UIKit

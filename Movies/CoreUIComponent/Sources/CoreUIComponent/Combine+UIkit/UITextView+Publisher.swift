@@ -1,9 +1,3 @@
-//
-//  UITextView+Publisher.swift
-//  BanqueMisr-UAE
-//
-//  Created by mohamed salah on 12/04/2023.
-//
 
 import Combine
 import UIKit

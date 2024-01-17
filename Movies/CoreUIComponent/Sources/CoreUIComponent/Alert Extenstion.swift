@@ -1,9 +1,3 @@
-//
-//  Alert Extenstion.swift
-//  Task
-//
-//  Created by mohamed salah on 9/3/21.
-//
 
 import Foundation
 import  UIKit

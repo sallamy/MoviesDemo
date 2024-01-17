@@ -66,7 +66,7 @@ public class MoviesListViewController: UIViewController {
     func observeLoader() {
         viewModel.isLoading
             .receive(on: DispatchQueue.main).sink { state in
-                self.indicatorView.isHidden = state
+                self.indicatorView.isHidden = !state
             }.store(in: &cancellables)
     }
     
@@ -78,7 +78,7 @@ public class MoviesListViewController: UIViewController {
         viewModel.moviesListObserver
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: tableView
-                .items { [weak self] (tableView, indexPath, model) in
+                .items {  (tableView, indexPath, model) in
                     let cell = tableView.dequeueReusableCell(withIdentifier: MovieTableViewCell.idenetifier, for: indexPath) as? MovieTableViewCell
                     cell?.setupData(model: model)
                     return cell ?? UITableViewCell()

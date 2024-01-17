@@ -1,9 +1,3 @@
-//
-//  Publisher+Extension.swift
-//  BanqueMisr-UAE
-//
-//  Created by Mohamed Samir on 25/07/2023.
-//
 
 import Combine
 import Foundation

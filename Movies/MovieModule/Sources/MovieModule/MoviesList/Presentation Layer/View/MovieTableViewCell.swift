@@ -39,7 +39,7 @@ class MovieTableViewCell: UITableViewCell {
     
     lazy var moviePosterImageView: UIImageView = {
         let logo = UIImageView()
-        logo.contentMode = .scaleAspectFit
+        logo.contentMode = .scaleAspectFill
         return logo
     }()
     
@@ -63,11 +63,11 @@ class MovieTableViewCell: UITableViewCell {
         stack.addArrangedSubview(titleLabel)
         stack.addArrangedSubview(dateLabel)
         self.addSubview(moviePosterImageView)
-        moviePosterImageView.setConstraints(top: self.topAnchor, bottom: self.bottomAnchor, leading: self.leadingAnchor, paddingTop: 8, paddingBottom: 8, paddingLeading: 8, width: 100, height: 200)
+        moviePosterImageView.setConstraints(top: self.topAnchor, bottom: self.bottomAnchor, leading: self.leadingAnchor, paddingTop: 8, paddingBottom: 8, paddingLeading: 8, width: 120, height: 200)
         moviePosterImageView.addSubview(indicatorView)
         indicatorView.setConstraints( centerX: moviePosterImageView.centerXAnchor, centerY: moviePosterImageView.centerYAnchor)
         self.addSubview(stack)
-        stack.setConstraints(top: self.topAnchor, leading: self.moviePosterImageView.trailingAnchor, trailing: self.trailingAnchor,paddingTop: 10,paddingLeading: 10,paddingTrailing: 10)
+        stack.setConstraints(top: moviePosterImageView.topAnchor, leading: self.moviePosterImageView.trailingAnchor, trailing: self.trailingAnchor,paddingTop: 10,paddingLeading: 20,paddingTrailing: 10)
     }
     
     func setupData(model: Movie){
