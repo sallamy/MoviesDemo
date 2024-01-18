@@ -294,8 +294,8 @@
             filePath = "MovieModule/Sources/MovieModule/MoviesList/Presentation Layer/View/MoviesListViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "93"
-            endingLineNumber = "93"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
             landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
             <Locations>
@@ -389,8 +389,8 @@
             filePath = "MovieModule/Sources/MovieModule/MovieDetails/Presentation Layer/ViewModel/MovieDetailsViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "30"
-            endingLineNumber = "30"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
             landmarkName = "fetchMovieDetails(movieId:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -405,8 +405,8 @@
             filePath = "MovieModule/Sources/MovieModule/MovieDetails/Presentation Layer/ViewModel/MovieDetailsViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "24"
-            endingLineNumber = "24"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
             landmarkName = "fetchMovieDetails(movieId:)"
             landmarkType = "7">
             <Locations>

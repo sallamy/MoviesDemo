@@ -9,16 +9,16 @@ import Foundation
 import Combine
 
 public class MoviesListViewModel {
-    let useCase: MoviesListUseCaseInterface!
+    private let useCase: MoviesListUseCaseInterface!
     let moviesListObserver = CurrentValueSubject<[Movie], Never>([])
     var isLoading = PassthroughSubject<Bool, Never>()
-
+    var errorObserver = PassthroughSubject<Error, Never>()
+    
     public init(useCase: MoviesListUseCaseInterface!) {
         self.useCase = useCase
     }
     
     func fetchMovies() async {
-        
         do {
             self.isLoading.send(true)
             let result = try await self.useCase.executeFetchData()
@@ -26,8 +26,9 @@ public class MoviesListViewModel {
             self.isLoading.send(false)
         } catch let error  {
             self.isLoading.send(false)
+            errorObserver.send(error)
         } catch {}
-    
-       
+        
+        
     }
 }

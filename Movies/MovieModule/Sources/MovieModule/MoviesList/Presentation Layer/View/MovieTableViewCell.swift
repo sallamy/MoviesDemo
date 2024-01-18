@@ -10,8 +10,8 @@ import SDWebImage
 
 class MovieTableViewCell: UITableViewCell {
     static let idenetifier = "MovieTableViewCell"
-
-    lazy var indicatorView: UIActivityIndicatorView = {
+    
+    private lazy var indicatorView: UIActivityIndicatorView = {
         let view = UIActivityIndicatorView(style: .medium)
         view.color = .darkGray
         view.startAnimating()
@@ -19,7 +19,7 @@ class MovieTableViewCell: UITableViewCell {
         return view
     }()
     
-    lazy var titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 15)
         label.numberOfLines = 2
@@ -29,7 +29,7 @@ class MovieTableViewCell: UITableViewCell {
         return label
     }()
     
-    lazy var dateLabel: UILabel = {
+    private lazy var dateLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 10)
         label.textColor = UIColor.black
@@ -37,7 +37,7 @@ class MovieTableViewCell: UITableViewCell {
         return label
     }()
     
-    lazy var moviePosterImageView: UIImageView = {
+    private lazy var moviePosterImageView: UIImageView = {
         let logo = UIImageView()
         logo.contentMode = .scaleAspectFill
         return logo
@@ -53,7 +53,7 @@ class MovieTableViewCell: UITableViewCell {
         buildUI()
     }
     
-    func buildUI(){
+    private func buildUI(){
         self.backgroundColor  = UIColor.white
         self.selectionStyle = .none
         let stack = UIStackView()

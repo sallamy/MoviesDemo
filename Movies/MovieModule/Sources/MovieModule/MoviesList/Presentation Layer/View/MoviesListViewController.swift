@@ -11,14 +11,14 @@ import Combine
 
 public class MoviesListViewController: UIViewController {
     
-    lazy var tableView: UITableView = {
+    private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = UIColor.white
         tableView.tableFooterView = UIView()
         return tableView
     }()
     
-    lazy var indicatorView: UIActivityIndicatorView = {
+    private lazy var indicatorView: UIActivityIndicatorView = {
         let view = UIActivityIndicatorView(style: .large)
         view.color = .darkGray
         view.startAnimating()
@@ -29,17 +29,16 @@ public class MoviesListViewController: UIViewController {
     private var cancellables = Set<AnyCancellable>()
     private let viewModel: MoviesListViewModel
     
-    
     public  init(with viewModel: MoviesListViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
-
+    
     @available(*, unavailable)
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
         buidUI()
@@ -47,10 +46,11 @@ public class MoviesListViewController: UIViewController {
         observeLoader()
         bindTableView()
         getListData()
+        observeError()
     }
-
+    
     private func getListData() {
-            Task {await viewModel.fetchMovies()}
+        Task {await viewModel.fetchMovies()}
     }
     
     private func buidUI() {
@@ -63,18 +63,26 @@ public class MoviesListViewController: UIViewController {
         
     }
     
-    func observeLoader() {
+    private func observeLoader() {
         viewModel.isLoading
             .receive(on: DispatchQueue.main).sink { state in
                 self.indicatorView.isHidden = !state
             }.store(in: &cancellables)
     }
     
-    func registerTableView() {
+    private func observeError() {
+        viewModel.errorObserver
+            .receive(on: DispatchQueue.main).sink {[weak self] error in
+                guard let self = self else {return}
+                UIAlertController.show(error.localizedDescription, from: self)
+            }.store(in: &cancellables)
+    }
+    
+    private func registerTableView() {
         self.tableView.register(MovieTableViewCell.self, forCellReuseIdentifier: MovieTableViewCell.idenetifier)
     }
     
-    func bindTableView() {
+    private func bindTableView() {
         viewModel.moviesListObserver
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: tableView
@@ -93,7 +101,6 @@ extension MoviesListViewController: UITableViewDelegate {
         if let movieId = self.viewModel.moviesListObserver.value[indexPath.row].id {
             self.navigationController?.pushViewController(ContainerManager.shared.createMoviesDetailsViewController(movieId: movieId ), animated: true)
         }
-     
     }
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

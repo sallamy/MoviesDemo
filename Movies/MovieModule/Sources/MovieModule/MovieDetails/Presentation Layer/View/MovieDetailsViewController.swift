@@ -10,8 +10,8 @@ import CoreUIComponent
 import Combine
 
 public class MovieDetailsViewController: UIViewController {
-
-    lazy var indicatorView: UIActivityIndicatorView = {
+    
+    private lazy var indicatorView: UIActivityIndicatorView = {
         let view = UIActivityIndicatorView(style: .large)
         view.color = .darkGray
         view.startAnimating()
@@ -19,7 +19,7 @@ public class MovieDetailsViewController: UIViewController {
         return view
     }()
     
-    lazy var titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 15)
         label.numberOfLines = 2
@@ -29,7 +29,7 @@ public class MovieDetailsViewController: UIViewController {
         return label
     }()
     
-    lazy var overViewLabel: UILabel = {
+    private lazy var overViewLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 13)
         label.numberOfLines = 0
@@ -38,7 +38,7 @@ public class MovieDetailsViewController: UIViewController {
         return label
     }()
     
-    lazy var dateLabel: UILabel = {
+    private lazy var dateLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 10)
         label.textColor = UIColor.black
@@ -46,12 +46,12 @@ public class MovieDetailsViewController: UIViewController {
         return label
     }()
     
-    lazy var moviePosterImageView: UIImageView = {
+    private lazy var moviePosterImageView: UIImageView = {
         let logo = UIImageView()
         logo.contentMode = .scaleAspectFill
         return logo
     }()
-    let movieId: Int?
+    private let movieId: Int?
     
     public  init(with viewModel: MovieDetailsViewModel, movieId: Int) {
         self.viewModel = viewModel
@@ -60,23 +60,24 @@ public class MovieDetailsViewController: UIViewController {
     }
     private var cancellables = Set<AnyCancellable>()
     private let viewModel: MovieDetailsViewModel
-
+    
     @available(*, unavailable)
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
         buildUI()
         bindUI()
         getDetials()
         observeLoader()
+        observeError()
     }
     
     private func getDetials() {
         Task{await  self.viewModel.fetchMovieDetails(movieId: self.movieId ?? 0)}
-       
+        
     }
     
     private func buildUI() {
@@ -86,7 +87,7 @@ public class MovieDetailsViewController: UIViewController {
         self.view.addSubview(dateLabel)
         self.view.addSubview(overViewLabel)
         self.view.addSubview(indicatorView)
-
+        
         self.indicatorView.setConstraints( centerX: view.centerXAnchor, centerY: view.centerYAnchor)
         moviePosterImageView.setConstraints(top: view.safeAreaLayoutGuide.topAnchor, centerX: view.centerXAnchor, paddingTop: 100,  width: 150, height: 150)
         titleLabel.setConstraints(top: moviePosterImageView.bottomAnchor,leading: view.leadingAnchor, trailing: view.trailingAnchor, paddingTop: 50, paddingLeading: 10, paddingTrailing: 10)
@@ -99,6 +100,14 @@ public class MovieDetailsViewController: UIViewController {
         viewModel.isLoading
             .receive(on: DispatchQueue.main).sink { state in
                 self.indicatorView.isHidden = !state
+            }.store(in: &cancellables)
+    }
+    
+    private func observeError() {
+        viewModel.errorObserver
+            .receive(on: DispatchQueue.main).sink {[weak self] error in
+                guard let self = self else {return}
+                UIAlertController.show(error.localizedDescription, from: self)
             }.store(in: &cancellables)
     }
     
@@ -117,5 +126,5 @@ public class MovieDetailsViewController: UIViewController {
             }
         }.store(in: &cancellables)
     }
-
+    
 }
