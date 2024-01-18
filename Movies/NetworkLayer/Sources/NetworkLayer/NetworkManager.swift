@@ -13,14 +13,13 @@ public protocol NetworkService {
 }
 
 public class NetworkManager: NetworkService {
-    private let baseURL: String
 
-    public init(baseURL: String = "") {
-        self.baseURL = baseURL
+
+    public init() {
     }
 
     public func request<T: Decodable>(_ endpoint: TargetType, parameters: Encodable? = nil) -> AnyPublisher<T, Error> {
-            guard let url = URL(string: baseURL + endpoint.path) else {
+        guard let url = URL(string: endpoint.baseURL + endpoint.path) else {
                 return Fail(error: APIError.invalidURL).eraseToAnyPublisher()
             }
             var urlRequest = URLRequest(url: url)

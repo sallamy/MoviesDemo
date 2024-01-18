@@ -14,19 +14,17 @@ import MovieModule
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-   
+    var appManager: AppManager?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         let bounds = UIScreen.main.bounds
         self.window = UIWindow(frame: bounds)
         self.window?.isHidden = false
-        setRootViewController()
+        appManager = AppManager(window: self.window)
+        
         return true
     }
-    
-    func setRootViewController() {
-        self.window?.rootViewController = UINavigationController(rootViewController: ContainerManager.shared.createMoviesListViewController())
-    }
+ 
 
 }
 

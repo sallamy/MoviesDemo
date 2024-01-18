@@ -17,6 +17,7 @@ public enum HttpMethod: String {
 public protocol TargetType {
     var path: String { get }
     var httpMethod: HttpMethod { get }
+    var baseURL: String { get }
 }
 
 

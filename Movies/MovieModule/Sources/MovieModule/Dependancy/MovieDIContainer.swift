@@ -8,28 +8,14 @@
 import Foundation
 import Swinject
 import NetworkLayer
+import DependenciesModule
 
 
-public class ContainerManager {
-    let container = Container()
-    let baseUrl = "https://api.themoviedb.org"
-    public static let shared = ContainerManager()
-    init() {
-        registerMovieList()
-        registerMovieDetails()
-    }
-    
-    public func createMoviesListViewController() -> MoviesListViewController {
-        self.container.resolve(MoviesListViewController.self)!
-    }
-    
-    public func createMoviesDetailsViewController(movieId: Int) -> MovieDetailsViewController {
-        self.container.resolve(MovieDetailsViewController.self, argument: movieId)!
-    }
-    
-   private func registerMovieList() {
+public struct MovieDIContainer {
+
+    public static func setup(_ container : Container) {
         container.register(NetworkService.self) { _ in
-            NetworkManager(baseURL: self.baseUrl)
+            NetworkManager()
         }
         
         container.register(MoviesListRepositoryProtocol.self) { r in
@@ -44,13 +30,6 @@ public class ContainerManager {
             MoviesListViewModel(useCase: r.resolve(MoviesListUseCaseInterface.self)!)
         }
         
-        container.register(MoviesListViewController.self) { r in
-            MoviesListViewController(with: r.resolve(MoviesListViewModel.self)!)
-        }
-    }
-    
-    private func registerMovieDetails() {
-      
         container.register(MovieDetailsRepositoryProtocol.self) { r in
             MovieDetailsRepository(clientService: r.resolve(NetworkService.self)!)
         }
@@ -63,8 +42,9 @@ public class ContainerManager {
             MovieDetailsViewModel(useCase: r.resolve(MovieDetailsUseCaseInterface.self)!)
         }
 
-        container.register(MovieDetailsViewController.self) { resolver, id in
-            MovieDetailsViewController(with: resolver.resolve(MovieDetailsViewModel.self)!, movieId: id)
+        container.register(MoviesListViewControllerProviderProtocol.self) { resolver in
+            MoviesListViewControllerProvider(resolver: resolver)
         }
+        
     }
 }

@@ -12,6 +12,9 @@
 		FF2230722B56DB7D00E6A25E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF2230702B56DB7D00E6A25E /* LaunchScreen.storyboard */; };
 		FF22307D2B56DB7D00E6A25E /* MoviesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF22307C2B56DB7D00E6A25E /* MoviesTests.swift */; };
 		FF2230C52B57568900E6A25E /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = FF2230C42B57568900E6A25E /* Swinject */; };
+		FF9218272B599F7100772A21 /* MainContianer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9218262B599F7100772A21 /* MainContianer.swift */; };
+		FF9677502B59A2960056BCDD /* AppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF96774F2B59A2960056BCDD /* AppManager.swift */; };
+		FF9677552B59A66F0056BCDD /* DependenciesModule in Frameworks */ = {isa = PBXBuildFile; productRef = FF9677542B59A66F0056BCDD /* DependenciesModule */; };
 		FFD9A9132B576BD8004C21AA /* MovieModule in Frameworks */ = {isa = PBXBuildFile; productRef = FFD9A9122B576BD8004C21AA /* MovieModule */; };
 		FFD9A9152B576BD8004C21AA /* NetworkLayer in Frameworks */ = {isa = PBXBuildFile; productRef = FFD9A9142B576BD8004C21AA /* NetworkLayer */; };
 		FFD9A9172B576C25004C21AA /* CoreUIComponent in Frameworks */ = {isa = PBXBuildFile; productRef = FFD9A9162B576C25004C21AA /* CoreUIComponent */; };
@@ -43,6 +46,9 @@
 		FF2230782B56DB7D00E6A25E /* MoviesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoviesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF22307C2B56DB7D00E6A25E /* MoviesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesTests.swift; sourceTree = "<group>"; };
 		FF2230822B56DB7D00E6A25E /* MoviesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoviesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FF9218262B599F7100772A21 /* MainContianer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContianer.swift; sourceTree = "<group>"; };
+		FF96774F2B59A2960056BCDD /* AppManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppManager.swift; sourceTree = "<group>"; };
+		FF9677532B59A4B20056BCDD /* DependenciesModule */ = {isa = PBXFileReference; lastKnownFileType = text; path = DependenciesModule; sourceTree = SOURCE_ROOT; };
 		FFD9A90B2B576B1E004C21AA /* MovieModule */ = {isa = PBXFileReference; lastKnownFileType = text; path = MovieModule; sourceTree = SOURCE_ROOT; };
 		FFD9A90C2B576B1E004C21AA /* NetworkLayer */ = {isa = PBXFileReference; lastKnownFileType = text; path = NetworkLayer; sourceTree = SOURCE_ROOT; };
 		FFD9A90D2B576B1E004C21AA /* CoreUIComponent */ = {isa = PBXFileReference; lastKnownFileType = text; path = CoreUIComponent; sourceTree = SOURCE_ROOT; };
@@ -55,6 +61,7 @@
 			files = (
 				FFD9A9172B576C25004C21AA /* CoreUIComponent in Frameworks */,
 				FFD9A9132B576BD8004C21AA /* MovieModule in Frameworks */,
+				FF9677552B59A66F0056BCDD /* DependenciesModule in Frameworks */,
 				FFD9A9152B576BD8004C21AA /* NetworkLayer in Frameworks */,
 				FF2230C52B57568900E6A25E /* Swinject in Frameworks */,
 			);
@@ -81,6 +88,8 @@
 			isa = PBXGroup;
 			children = (
 				FF2230652B56DB7900E6A25E /* AppDelegate.swift */,
+				FF96774F2B59A2960056BCDD /* AppManager.swift */,
+				FF9218262B599F7100772A21 /* MainContianer.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -118,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				FF01A5F02B577DE100D19171 /* App */,
+				FF9677532B59A4B20056BCDD /* DependenciesModule */,
 				FFD9A90D2B576B1E004C21AA /* CoreUIComponent */,
 				FFD9A90C2B576B1E004C21AA /* NetworkLayer */,
 				FFD9A90B2B576B1E004C21AA /* MovieModule */,
@@ -163,6 +173,7 @@
 				FFD9A9122B576BD8004C21AA /* MovieModule */,
 				FFD9A9142B576BD8004C21AA /* NetworkLayer */,
 				FFD9A9162B576C25004C21AA /* CoreUIComponent */,
+				FF9677542B59A66F0056BCDD /* DependenciesModule */,
 			);
 			productName = Movies;
 			productReference = FF2230622B56DB7900E6A25E /* Movies.app */;
@@ -281,6 +292,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF9677502B59A2960056BCDD /* AppManager.swift in Sources */,
+				FF9218272B599F7100772A21 /* MainContianer.swift in Sources */,
 				FF2230662B56DB7900E6A25E /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -629,6 +642,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FF2230AA2B56DEBD00E6A25E /* XCRemoteSwiftPackageReference "Swinject" */;
 			productName = Swinject;
+		};
+		FF9677542B59A66F0056BCDD /* DependenciesModule */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DependenciesModule;
 		};
 		FFD9A9122B576BD8004C21AA /* MovieModule */ = {
 			isa = XCSwiftPackageProductDependency;
