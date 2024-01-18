@@ -119,8 +119,8 @@
 			children = (
 				FF01A5F02B577DE100D19171 /* App */,
 				FFD9A90D2B576B1E004C21AA /* CoreUIComponent */,
-				FFD9A90B2B576B1E004C21AA /* MovieModule */,
 				FFD9A90C2B576B1E004C21AA /* NetworkLayer */,
+				FFD9A90B2B576B1E004C21AA /* MovieModule */,
 				FF2230732B56DB7D00E6A25E /* Info.plist */,
 				FF01A5F12B577E0000D19171 /* Resources */,
 			);
