@@ -19,7 +19,7 @@ public class MoviesListViewController: UIViewController {
     }()
     
     lazy var indicatorView: UIActivityIndicatorView = {
-        let view = UIActivityIndicatorView(style: .medium)
+        let view = UIActivityIndicatorView(style: .large)
         view.color = .darkGray
         view.startAnimating()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -47,7 +47,6 @@ public class MoviesListViewController: UIViewController {
         observeLoader()
         bindTableView()
         getListData()
-        // Do any additional setup after loading the view.
     }
 
     private func getListData() {
@@ -55,6 +54,7 @@ public class MoviesListViewController: UIViewController {
     }
     
     private func buidUI() {
+        self.tableView.delegate = self
         self.view.backgroundColor = UIColor.white
         self.view.addSubview(self.tableView)
         self.view.addSubview(self.indicatorView)
@@ -90,6 +90,9 @@ public class MoviesListViewController: UIViewController {
 extension MoviesListViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        if let movieId = self.viewModel.moviesListObserver.value[indexPath.row].id {
+            self.navigationController?.pushViewController(ContainerManager.shared.createMoviesDetailsViewController(movieId: movieId ), animated: true)
+        }
      
     }
     

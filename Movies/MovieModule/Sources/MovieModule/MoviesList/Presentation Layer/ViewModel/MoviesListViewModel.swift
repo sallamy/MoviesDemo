@@ -9,11 +9,11 @@ import Foundation
 import Combine
 
 public class MoviesListViewModel {
-    let useCase: MoviesListUseCase!
-    let moviesListObserver = PassthroughSubject<[Movie], Never>()
+    let useCase: MoviesListUseCaseInterface!
+    let moviesListObserver = CurrentValueSubject<[Movie], Never>([])
     var isLoading = PassthroughSubject<Bool, Never>()
 
-    public init(useCase: MoviesListUseCase!) {
+    public init(useCase: MoviesListUseCaseInterface!) {
         self.useCase = useCase
     }
     
