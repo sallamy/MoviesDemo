@@ -7,7 +7,6 @@
 
 import Foundation
 import MovieModule
-
 import DependenciesModule
 import UIKit
 

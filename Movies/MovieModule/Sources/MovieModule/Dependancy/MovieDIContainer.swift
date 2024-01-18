@@ -9,11 +9,13 @@ import Foundation
 import Swinject
 import NetworkLayer
 import DependenciesModule
+import UIKit
 
 
 public struct MovieDIContainer {
 
-    public static func setup(_ container : Container) {
+    public static func setup(_ container : Container,
+                             navigationController: UINavigationController) {
         container.register(NetworkService.self) { _ in
             NetworkManager()
         }
@@ -44,6 +46,10 @@ public struct MovieDIContainer {
 
         container.register(MoviesListViewControllerProviderProtocol.self) { resolver in
             MoviesListViewControllerProvider(resolver: resolver)
+        }
+        
+        container.register(MoviesModuleCoordinatorProvider.self) { resolver in
+            MoviesModuleCoordinator(resolver.resolve(MoviesListViewControllerProviderProtocol.self)!, navigationController: navigationController)
         }
         
     }

@@ -12,6 +12,7 @@ import UIKit
 import Swinject
 
 class AppManager {
+    
     let navigationController = UINavigationController()
     var window: UIWindow?
     let container = Container()
@@ -23,10 +24,7 @@ class AppManager {
     }
     
     func setupDI() {
-        MovieDIContainer.setup(self.container)
-        container.register(MoviesModuleCoordinatorProvider.self) {[weak self] resolver in
-            MoviesModuleCoordinator(resolver.resolve(MoviesListViewControllerProviderProtocol.self)!, navigationController: self?.navigationController ?? UINavigationController())
-        }
+        MovieDIContainer.setup(self.container, navigationController: self.navigationController)
     }
     
     func setRootViewController() {
