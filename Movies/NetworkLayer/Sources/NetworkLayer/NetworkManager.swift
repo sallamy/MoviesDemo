@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 public protocol NetworkService {
-     func request<T: Decodable>(_ endpoint: TargetType, parameters: Encodable?) -> AnyPublisher<T, Error>
+     func request<T: Decodable>(_ endpoint: TargetType, parameters: Encodable?) -> AnyPublisher<T, APIError>
 }
 
 public class NetworkManager: NetworkService {
@@ -18,7 +18,7 @@ public class NetworkManager: NetworkService {
     public init() {
     }
 
-    public func request<T: Decodable>(_ endpoint: TargetType, parameters: Encodable? = nil) -> AnyPublisher<T, Error> {
+    public func request<T: Decodable>(_ endpoint: TargetType, parameters: Encodable? = nil) -> AnyPublisher<T, APIError> {
         guard let url = URL(string: endpoint.baseURL + endpoint.path) else {
                 return Fail(error: APIError.invalidURL).eraseToAnyPublisher()
             }
@@ -46,8 +46,16 @@ public class NetworkManager: NetworkService {
                         throw APIError.requestFailed("Request failed with status code: \(statusCode)")
                     }
                 }
-                .decode(type: T.self, decoder: JSONDecoder())
-                
+                .decode(type: T.self, decoder: JSONDecoder()) .mapError { error -> APIError in
+                    if error is DecodingError {
+                        return APIError.decodingFailed
+                    } else if let apiError = error as? APIError {
+                        return apiError
+                    } else {
+                        return APIError.requestFailed("An unknown error occurred.")
+                    }
+                }
+
                 .eraseToAnyPublisher()
         }
 }

@@ -3,7 +3,7 @@ import NetworkLayer
 import Combine
 
 public protocol MoviesListRepositoryProtocol {
-    func fetch() -> AnyPublisher<MoviesListModel, Error>
+    func fetch() -> AnyPublisher<MoviesListModel, APIError>
 }
 
 public class MoviesListRepository: MoviesListRepositoryProtocol {
@@ -15,7 +15,7 @@ public class MoviesListRepository: MoviesListRepositoryProtocol {
     }
 
  
-    public func fetch() ->  AnyPublisher<MoviesListModel, Error> {
+    public func fetch() ->  AnyPublisher<MoviesListModel, APIError> {
          self.clientService.request(Endpoint.moviesList, parameters: nil)
     }
 }

@@ -7,18 +7,24 @@
 
 import Foundation
 import Combine
+import NetworkLayer
 
 public class MoviesListViewModel {
     private let useCase: MoviesListUseCaseInterface!
-    let moviesListObserver = CurrentValueSubject<[Movie], Never>([])
+    public  let moviesListObserver = CurrentValueSubject<[Movie], Never>([])
     var isLoading = PassthroughSubject<Bool, Never>()
-    var errorObserver = PassthroughSubject<Error, Never>()
-    
-    public init(useCase: MoviesListUseCaseInterface!) {
+    public var selectedIndex = PassthroughSubject<Int, Never>()
+    public var errorObserver = PassthroughSubject<APIError, Never>()
+    private let moviesModuleCoordinatorProvider: MoviesModuleCoordinatorProvider
+    private var cancellables = Set<AnyCancellable>()
+
+    public init(useCase: MoviesListUseCaseInterface!, moviesModuleCoordinatorProvider: MoviesModuleCoordinatorProvider) {
         self.useCase = useCase
+        self.moviesModuleCoordinatorProvider = moviesModuleCoordinatorProvider
+        observeSelectMovie()
     }
     
-    func fetchMovies() async {
+    public  func fetchMovies() async {
         do {
             self.isLoading.send(true)
             let result = try await self.useCase.executeFetchData()
@@ -26,9 +32,15 @@ public class MoviesListViewModel {
             self.isLoading.send(false)
         } catch let error  {
             self.isLoading.send(false)
-            errorObserver.send(error)
-        } catch {}
-        
-        
+            errorObserver.send(error as! APIError)
+        }
+    }
+    
+    public func observeSelectMovie() {
+        self.selectedIndex.sink { index in
+            if let movieId = self.moviesListObserver.value[index].id {
+                self.moviesModuleCoordinatorProvider.navigateToDetailsViewController(movieId: movieId)
+            }
+        }.store(in: &cancellables)
     }
 }

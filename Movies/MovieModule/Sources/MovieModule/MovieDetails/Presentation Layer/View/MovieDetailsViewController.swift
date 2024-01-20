@@ -117,12 +117,7 @@ public class MovieDetailsViewController: UIViewController {
             self.dateLabel.text = movieModel.releaseDate
             self.overViewLabel.text = movieModel.overview
             if let photo = movieModel.poster , let url =  URL(string: "https://image.tmdb.org/t/p/original" + photo ){
-                self.moviePosterImageView.sd_setImage(with: url) { [weak self] image, error, type, url in
-                    guard let self = self else {  return}
-                    if (error != nil) {
-                        print("errrrror")
-                    }
-                }
+                self.moviePosterImageView.sd_setImage(with: url)
             }
         }.store(in: &cancellables)
     }

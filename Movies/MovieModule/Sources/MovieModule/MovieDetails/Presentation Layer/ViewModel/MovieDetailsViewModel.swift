@@ -30,6 +30,6 @@ public class MovieDetailsViewModel{
         } catch let error  {
             self.isLoading.send(false)
             errorObserver.send(error)
-        } catch {}
+        } 
     }
 }

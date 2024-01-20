@@ -3,7 +3,7 @@ import NetworkLayer
 import Combine
 
 public protocol MovieDetailsRepositoryProtocol {
-    func getDetials(with movieId: Int) -> AnyPublisher<Movie, Error>
+    func getDetials(with movieId: Int) -> AnyPublisher<Movie, APIError>
 }
 
 public class MovieDetailsRepository: MovieDetailsRepositoryProtocol {
@@ -13,7 +13,7 @@ public class MovieDetailsRepository: MovieDetailsRepositoryProtocol {
         self.clientService = clientService
     }
 
-    public func getDetials(with movieId: Int) -> AnyPublisher<Movie, Error> {
+    public func getDetials(with movieId: Int) -> AnyPublisher<Movie, APIError> {
         self.clientService.request(Endpoint.movieDetails(id: movieId), parameters: nil)
     }
 }

@@ -10,6 +10,7 @@ import DependenciesModule
 import Swinject
 import UIKit
 
+// sourcery: AutoMockable
 public protocol MoviesModuleCoordinatorProvider {
     func start()
     func navigateToDetailsViewController(movieId: Int)

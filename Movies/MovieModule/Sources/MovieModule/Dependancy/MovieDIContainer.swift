@@ -28,8 +28,16 @@ public struct MovieDIContainer {
             MoviesListUseCase(repo: r.resolve(MoviesListRepositoryProtocol.self)!)
         }
         
+        container.register(MoviesListViewControllerProviderProtocol.self) { resolver in
+            MoviesListViewControllerProvider(resolver: resolver)
+        }
+        
+        container.register(MoviesModuleCoordinatorProvider.self) { resolver in
+            MoviesModuleCoordinator(resolver.resolve(MoviesListViewControllerProviderProtocol.self)!, navigationController: navigationController)
+        }
+        
         container.register(MoviesListViewModel.self) { r in
-            MoviesListViewModel(useCase: r.resolve(MoviesListUseCaseInterface.self)!)
+            MoviesListViewModel(useCase: r.resolve(MoviesListUseCaseInterface.self)!, moviesModuleCoordinatorProvider: r.resolve(MoviesModuleCoordinatorProvider.self)!)
         }
         
         container.register(MovieDetailsRepositoryProtocol.self) { r in
@@ -44,13 +52,9 @@ public struct MovieDIContainer {
             MovieDetailsViewModel(useCase: r.resolve(MovieDetailsUseCaseInterface.self)!)
         }
 
-        container.register(MoviesListViewControllerProviderProtocol.self) { resolver in
-            MoviesListViewControllerProvider(resolver: resolver)
-        }
+      
         
-        container.register(MoviesModuleCoordinatorProvider.self) { resolver in
-            MoviesModuleCoordinator(resolver.resolve(MoviesListViewControllerProviderProtocol.self)!, navigationController: navigationController)
-        }
+    
         
     }
 }

@@ -28,11 +28,9 @@ public class MoviesListViewController: UIViewController {
     
     private var cancellables = Set<AnyCancellable>()
     private let viewModel: MoviesListViewModel
-    private let moviesModuleCoordinatorProvider: MoviesModuleCoordinatorProvider
     
-    public  init(with viewModel: MoviesListViewModel, moviesModuleCoordinatorProvider: MoviesModuleCoordinatorProvider) {
+    public  init(with viewModel: MoviesListViewModel) {
         self.viewModel = viewModel
-        self.moviesModuleCoordinatorProvider = moviesModuleCoordinatorProvider
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -100,10 +98,7 @@ public class MoviesListViewController: UIViewController {
 extension MoviesListViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if let movieId = self.viewModel.moviesListObserver.value[indexPath.row].id {
-            self.moviesModuleCoordinatorProvider.navigateToDetailsViewController(movieId: movieId)
-           // self.navigationController?.pushViewController(ContainerManager.shared.createMoviesDetailsViewController(movieId: movieId ), animated: true)
-        }
+        self.viewModel.selectedIndex.send(indexPath.row)
     }
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
