@@ -1,0 +1,21 @@
+sourceryCommand: sourcery
+sourceryTemplate: null
+
+MovieModule:
+  sources:
+    include:
+    - ./MovieModule
+  output: ./MoviesTests/Mocks/MoviesTests.Mock.generated.swift
+  targets:
+  - MoviesTests
+  testable:
+  - Movies
+  import:
+  - Foundation
+  - Swinject
+  - UIKit
+  - DependenciesModule
+  - NetworkLayer
+  - MovieModule
+
+
