@@ -12,5 +12,6 @@ Modularised app using SPM swift package manager so we can scale the product by a
 * UI created by UICoding 
 * Architecture used is MVVM 
 * Combine framework is used for binding techniques 
-* swiftInject for  Dependencies
-* sdwebimage for loading image with url 
+* swiftInject for  manage Dependencies
+* sdwebimage for loading image with url
+* swiftmocky for generating mock file for testing
