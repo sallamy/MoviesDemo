@@ -29,4 +29,14 @@ class MoviesStubManager: BaseStubManager {
             return stub
         }
     }
+    
+    var movieDetailsStub: Movie? {
+        get throws {
+
+            guard let bundlePath = bundle.path(forResource: "MoviesDetailsStup", ofType: "json"),
+                  let jsonData = try String(contentsOfFile: bundlePath).data(using: .utf8) else { return nil }
+            let stub = try JSONDecoder().decode(Movie.self, from: jsonData)
+            return stub
+        }
+    }
 }

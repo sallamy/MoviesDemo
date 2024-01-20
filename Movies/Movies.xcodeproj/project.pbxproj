@@ -10,6 +10,8 @@
 		FF0E31FE2B5B6D930003A286 /* SwiftyMocky in Frameworks */ = {isa = PBXBuildFile; productRef = FF0E31FD2B5B6D930003A286 /* SwiftyMocky */; };
 		FF0E32002B5C25050003A286 /* MoviesListStup.json in Resources */ = {isa = PBXBuildFile; fileRef = FF0E31FF2B5C25050003A286 /* MoviesListStup.json */; };
 		FF0E32022B5C254F0003A286 /* MoviesStupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0E32012B5C254F0003A286 /* MoviesStupManager.swift */; };
+		FF0E32042B5C36880003A286 /* MovieDetailsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0E32032B5C36870003A286 /* MovieDetailsTests.swift */; };
+		FF0E32062B5C37100003A286 /* MoviesDetailsStup.json in Resources */ = {isa = PBXBuildFile; fileRef = FF0E32052B5C37100003A286 /* MoviesDetailsStup.json */; };
 		FF2230662B56DB7900E6A25E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2230652B56DB7900E6A25E /* AppDelegate.swift */; };
 		FF22306F2B56DB7D00E6A25E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF22306E2B56DB7D00E6A25E /* Assets.xcassets */; };
 		FF2230722B56DB7D00E6A25E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF2230702B56DB7D00E6A25E /* LaunchScreen.storyboard */; };
@@ -37,6 +39,8 @@
 /* Begin PBXFileReference section */
 		FF0E31FF2B5C25050003A286 /* MoviesListStup.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MoviesListStup.json; sourceTree = "<group>"; };
 		FF0E32012B5C254F0003A286 /* MoviesStupManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesStupManager.swift; sourceTree = "<group>"; };
+		FF0E32032B5C36870003A286 /* MovieDetailsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsTests.swift; sourceTree = "<group>"; };
+		FF0E32052B5C37100003A286 /* MoviesDetailsStup.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MoviesDetailsStup.json; sourceTree = "<group>"; };
 		FF2230622B56DB7900E6A25E /* Movies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Movies.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF2230652B56DB7900E6A25E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FF22306E2B56DB7D00E6A25E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -158,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				FF22307C2B56DB7D00E6A25E /* MoviesListTests.swift */,
+				FF0E32032B5C36870003A286 /* MovieDetailsTests.swift */,
 			);
 			path = TestCases;
 			sourceTree = "<group>";
@@ -166,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				FF0E31FF2B5C25050003A286 /* MoviesListStup.json */,
+				FF0E32052B5C37100003A286 /* MoviesDetailsStup.json */,
 				FF0E32012B5C254F0003A286 /* MoviesStupManager.swift */,
 			);
 			path = Stubs;
@@ -276,6 +282,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF0E32002B5C25050003A286 /* MoviesListStup.json in Resources */,
+				FF0E32062B5C37100003A286 /* MoviesDetailsStup.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +306,7 @@
 				FF9677672B5B6A6B0056BCDD /* MoviesTests.Mock.generated.swift in Sources */,
 				FF0E32022B5C254F0003A286 /* MoviesStupManager.swift in Sources */,
 				FF22307D2B56DB7D00E6A25E /* MoviesListTests.swift in Sources */,
+				FF0E32042B5C36880003A286 /* MovieDetailsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

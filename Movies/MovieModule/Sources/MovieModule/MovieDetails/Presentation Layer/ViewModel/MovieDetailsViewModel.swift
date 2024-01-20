@@ -7,13 +7,14 @@
 
 import Foundation
 import Combine
+import NetworkLayer
 
 public class MovieDetailsViewModel{
     
     private let useCase: MovieDetailsUseCaseInterface!
-    let movieDetailsObserver = PassthroughSubject<Movie, Never>()
+    public let movieDetailsObserver = PassthroughSubject<Movie, Never>()
     var isLoading = PassthroughSubject<Bool, Never>()
-    var errorObserver = PassthroughSubject<Error, Never>()
+    public var errorObserver = PassthroughSubject<APIError, Never>()
     
     public init(useCase: MovieDetailsUseCaseInterface!) {
         self.useCase = useCase
@@ -29,7 +30,7 @@ public class MovieDetailsViewModel{
             self.isLoading.send(false)
         } catch let error  {
             self.isLoading.send(false)
-            errorObserver.send(error)
-        } 
+            errorObserver.send(error as! APIError)
+        }
     }
 }

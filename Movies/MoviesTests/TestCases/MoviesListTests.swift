@@ -61,7 +61,7 @@ final class MoviesListTests: XCTestCase {
         usecaseMock.verify(.executeFetchData())
     }
     
-    func testLoadMoviesFailed() {
+    func testLoadMoviesFailed() throws {
         let error = APIError.decodingFailed
         usecaseMock.given(.executeFetchData(willThrow: error))
         
@@ -81,9 +81,9 @@ final class MoviesListTests: XCTestCase {
         }
     }
     
-    func testRouteToMovieDetails() {
+    func testRouteToMovieDetails() throws {
         
-        guard let stub = try! MoviesStubManager.shared.moviesStub else {
+        guard let stub = try MoviesStubManager.shared.moviesStub else {
             return      XCTFail("Failed to load  Response stub from json file.")
         }
         usecaseMock.given(.executeFetchData(willReturn: stub))
