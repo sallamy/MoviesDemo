@@ -18,7 +18,6 @@ final class MovieDetailsTests: XCTestCase {
     private var usecaseMock: MovieDetailsUseCaseInterfaceMock!
     private var cancellables: Set<AnyCancellable>!
     
-    
     override func setUpWithError() throws {
         cancellables = .init()
         usecaseMock = .init()
@@ -29,7 +28,6 @@ final class MovieDetailsTests: XCTestCase {
         cancellables = nil
         usecaseMock = nil
         sut = nil
-    }
     
     
     func testLoadMovieDetailsSucceed() throws {
@@ -74,8 +72,4 @@ final class MovieDetailsTests: XCTestCase {
             }
         }
     }
-    
-    
-    
-    
 }

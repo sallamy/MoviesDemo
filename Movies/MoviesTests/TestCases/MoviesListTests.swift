@@ -103,6 +103,4 @@ final class MoviesListTests: XCTestCase {
         sut.selectedIndex.send(1)
         coordinatorMock.verify(.navigateToDetailsViewController(movieId: .any))
     }
-    
-    
 }
