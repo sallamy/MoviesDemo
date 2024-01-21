@@ -16,16 +16,15 @@ public protocol MoviesModuleCoordinatorProvider {
     func navigateToDetailsViewController(movieId: Int)
 }
 
-public class MoviesModuleCoordinator: MoviesModuleCoordinatorProvider  {
+public class MoviesModuleCoordinator: MoviesModuleCoordinatorProvider {
     
     private weak var navigationController: UINavigationController?
-    let provider: MoviesListViewControllerProviderProtocol!
+    let provider: MoviesListViewControllerProviderProtocol
     
     public init(_ provider: MoviesListViewControllerProviderProtocol,
                 navigationController: UINavigationController) {
         self.provider = provider
         self.navigationController = navigationController
-        
     }
     
     public func start() {
@@ -36,7 +35,5 @@ public class MoviesModuleCoordinator: MoviesModuleCoordinatorProvider  {
     public func navigateToDetailsViewController(movieId: Int) {
         let viewController = self.provider.getDetailsViewController(movieId: movieId)
         self.navigationController?.pushViewController(viewController, animated: true)
-        
     }
-    
 }

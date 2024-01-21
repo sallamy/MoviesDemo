@@ -51,15 +51,16 @@ public class MovieDetailsViewController: UIViewController {
         logo.contentMode = .scaleAspectFill
         return logo
     }()
-    private let movieId: Int?
     
-    public  init(with viewModel: MovieDetailsViewModel, movieId: Int) {
+    private let movieId: Int?
+    private var cancellables = Set<AnyCancellable>()
+    private let viewModel: MovieDetailsViewModel
+    
+    public init(with viewModel: MovieDetailsViewModel, movieId: Int) {
         self.viewModel = viewModel
         self.movieId = movieId
         super.init(nibName: nil, bundle: nil)
     }
-    private var cancellables = Set<AnyCancellable>()
-    private let viewModel: MovieDetailsViewModel
     
     @available(*, unavailable)
     required init?(coder aDecoder: NSCoder) {
@@ -70,14 +71,13 @@ public class MovieDetailsViewController: UIViewController {
         super.viewDidLoad()
         buildUI()
         bindUI()
-        getDetials()
+        getDetails()
         observeLoader()
         observeError()
     }
     
-    private func getDetials() {
-        Task{await  self.viewModel.fetchMovieDetails(movieId: self.movieId ?? 0)}
-        
+    private func getDetails() {
+        Task { await self.viewModel.fetchMovieDetails(movieId: self.movieId ?? 0) }
     }
     
     private func buildUI() {
@@ -88,38 +88,40 @@ public class MovieDetailsViewController: UIViewController {
         self.view.addSubview(overViewLabel)
         self.view.addSubview(indicatorView)
         
-        self.indicatorView.setConstraints( centerX: view.centerXAnchor, centerY: view.centerYAnchor)
-        moviePosterImageView.setConstraints(top: view.safeAreaLayoutGuide.topAnchor, centerX: view.centerXAnchor, paddingTop: 100,  width: 150, height: 150)
-        titleLabel.setConstraints(top: moviePosterImageView.bottomAnchor,leading: view.leadingAnchor, trailing: view.trailingAnchor, paddingTop: 50, paddingLeading: 10, paddingTrailing: 10)
-        dateLabel.setConstraints(top: titleLabel.bottomAnchor,  leading: view.leadingAnchor,  paddingTop: 10, paddingLeading: 10)
+        self.indicatorView.setConstraints(centerX: view.centerXAnchor, centerY: view.centerYAnchor)
+        moviePosterImageView.setConstraints(top: view.safeAreaLayoutGuide.topAnchor, centerX: view.centerXAnchor, paddingTop: 100, width: 150, height: 150)
+        titleLabel.setConstraints(top: moviePosterImageView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, paddingTop: 50, paddingLeading: 10, paddingTrailing: 10)
+        dateLabel.setConstraints(top: titleLabel.bottomAnchor, leading: view.leadingAnchor, paddingTop: 10, paddingLeading: 10)
         overViewLabel.setConstraints(top: dateLabel.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, paddingTop: 10, paddingLeading: 10, paddingTrailing: 10)
-        
     }
     
     private func observeLoader() {
         viewModel.isLoading
-            .receive(on: DispatchQueue.main).sink { state in
+            .receive(on: DispatchQueue.main)
+            .sink { state in
                 self.indicatorView.isHidden = !state
             }.store(in: &cancellables)
     }
     
     private func observeError() {
         viewModel.errorObserver
-            .receive(on: DispatchQueue.main).sink {[weak self] error in
-                guard let self = self else {return}
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] error in
+                guard let self = self else { return }
                 UIAlertController.show(error.localizedDescription, from: self)
             }.store(in: &cancellables)
     }
     
     private func bindUI() {
-        self.viewModel.movieDetailsObserver.receive(on: DispatchQueue.main).sink { movieModel in
-            self.titleLabel.text = movieModel.title
-            self.dateLabel.text = movieModel.releaseDate
-            self.overViewLabel.text = movieModel.overview
-            if let photo = movieModel.poster , let url =  URL(string: "https://image.tmdb.org/t/p/original" + photo ){
-                self.moviePosterImageView.sd_setImage(with: url)
-            }
-        }.store(in: &cancellables)
+        self.viewModel.movieDetailsObserver
+            .receive(on: DispatchQueue.main)
+            .sink { movieModel in
+                self.titleLabel.text = movieModel.title
+                self.dateLabel.text = movieModel.releaseDate
+                self.overViewLabel.text = movieModel.overview
+                if let photo = movieModel.poster, let url = URL(string: "https://image.tmdb.org/t/p/original" + photo) {
+                    self.moviePosterImageView.sd_setImage(with: url)
+                }
+            }.store(in: &cancellables)
     }
-    
 }

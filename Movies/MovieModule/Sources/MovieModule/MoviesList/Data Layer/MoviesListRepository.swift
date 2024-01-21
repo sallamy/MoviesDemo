@@ -14,10 +14,8 @@ public class MoviesListRepository: MoviesListRepositoryProtocol {
         self.clientService = clientService
     }
 
- 
-    public func fetch() ->  AnyPublisher<MoviesListModel, APIError> {
-         self.clientService.request(Endpoint.moviesList, parameters: nil)
+    public func fetch() -> AnyPublisher<MoviesListModel, APIError> {
+        self.clientService.request(Endpoint.moviesList, parameters: nil)
     }
 }
-
 

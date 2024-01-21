@@ -5,6 +5,13 @@
 //  Created by mohamed salah on 16/01/2024.
 //
 
+//
+//  MovieDetailsTests.swift
+//  MoviesTests
+//
+//  Created by mohamed salah on 16/01/2024.
+//
+
 import XCTest
 @testable import Movies
 import DependenciesModule
@@ -28,24 +35,23 @@ final class MovieDetailsTests: XCTestCase {
         cancellables = nil
         usecaseMock = nil
         sut = nil
-    
+    }
     
     func testLoadMovieDetailsSucceed() throws {
-        
         guard let stub = try MoviesStubManager.shared.movieDetailsStub else {
-            return   XCTFail("Failed to load  Response stub from json file.")
+            return XCTFail("Failed to load Response stub from json file.")
         }
         usecaseMock.given(.executeFetchDetails(movieId: .any, willReturn: stub))
         
         let exp = expectation(description: "response")
         
-        sut.movieDetailsObserver.sink { response  in
+        sut.movieDetailsObserver.sink { response in
             XCTAssertNotNil(response)
             exp.fulfill()
         }.store(in: &cancellables)
-        Task { await sut.fetchMovieDetails(movieId:1)}
+        Task { await sut.fetchMovieDetails(movieId: 1) }
         
-        waitForExpectations(timeout: 2) { (error) in
+        waitForExpectations(timeout: 2) { error in
             if error != nil {
                 XCTFail("Did not fulfill expectations")
             }
@@ -58,15 +64,14 @@ final class MovieDetailsTests: XCTestCase {
         usecaseMock.given(.executeFetchDetails(movieId: .any, willThrow: error))
         
         let exp = expectation(description: "errorMessage")
-        sut.errorObserver.sink { (error) in
-            
+        sut.errorObserver.sink { error in
             XCTAssertEqual(error, APIError.decodingFailed, "Error Decoding")
             exp.fulfill()
         }.store(in: &cancellables)
         
-        Task { await sut.fetchMovieDetails(movieId:1)}
+        Task { await sut.fetchMovieDetails(movieId: 1) }
         
-        waitForExpectations(timeout: 2) { (error) in
+        waitForExpectations(timeout: 2) { error in
             if error != nil {
                 XCTFail("Did not fulfill expectations")
             }

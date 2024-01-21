@@ -11,7 +11,7 @@ import NetworkLayer
 
 // sourcery: AutoMockable
 public protocol MoviesListUseCaseInterface {
-     func executeFetchData() async throws -> MoviesListModel?
+    func executeFetchData() async throws -> MoviesListModel?
 }
 
 public class MoviesListUseCase: MoviesListUseCaseInterface  {
@@ -25,18 +25,18 @@ public class MoviesListUseCase: MoviesListUseCaseInterface  {
     
     public func executeFetchData() async throws -> MoviesListModel? {
         return try await withCheckedThrowingContinuation { continuation in
-            self.repo.fetch().sink { completion in
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    continuation.resume(throwing: error)
+            self.repo.fetch()
+                .sink { completion in
+                    switch completion {
+                    case .finished:
+                        break
+                    case .failure(let error):
+                        continuation.resume(throwing: error)
+                    }
+                } receiveValue: { response in
+                    continuation.resume(returning: response)
                 }
-            } receiveValue: { response in
-                continuation.resume(returning: response)
-            }.store(in: &cancellables)
+                .store(in: &cancellables)
         }
-        
     }
-    
 }

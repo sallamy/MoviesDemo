@@ -19,7 +19,6 @@ final class MoviesListTests: XCTestCase {
     private var coordinatorMock: MoviesModuleCoordinatorProviderMock!
     private var cancellables: Set<AnyCancellable>!
     
-    
     override func setUpWithError() throws {
         cancellables = .init()
         usecaseMock = .init()
@@ -34,29 +33,25 @@ final class MoviesListTests: XCTestCase {
         coordinatorMock = nil
     }
     
-    
     func testLoadMoviesSucceeds() throws {
-        
         guard let stub = try! MoviesStubManager.shared.moviesStub else {
-            return      XCTFail("Failed to load  Response stub from json file.")
+            return XCTFail("Failed to load Response stub from json file.")
         }
         usecaseMock.given(.executeFetchData(willReturn: stub))
         
         let exp = expectation(description: "response")
         
         sut.moviesListObserver.dropFirst().sink { response  in
-            
             XCTAssertEqual(response.count, 7, "Response should have 7 objects")
             exp.fulfill()
         }.store(in: &cancellables)
-        Task { await sut.fetchMovies()}
+        Task { await sut.fetchMovies() }
         
-        waitForExpectations(timeout: 4) { (error) in
+        waitForExpectations(timeout: 4) { error in
             if error != nil {
                 XCTFail("Did not fulfill expectations")
             }
         }
-        
         
         usecaseMock.verify(.executeFetchData())
     }
@@ -67,14 +62,13 @@ final class MoviesListTests: XCTestCase {
         
         let exp = expectation(description: "errorMessage")
         sut.errorObserver.sink { (error) in
-            
             XCTAssertEqual(error, APIError.decodingFailed, "Error Decoding")
             exp.fulfill()
         }.store(in: &cancellables)
         
-        Task { await sut.fetchMovies()}
+        Task { await sut.fetchMovies() }
         
-        waitForExpectations(timeout: 2) { (error) in
+        waitForExpectations(timeout: 2) { error in
             if error != nil {
                 XCTFail("Did not fulfill expectations")
             }
@@ -82,20 +76,19 @@ final class MoviesListTests: XCTestCase {
     }
     
     func testRouteToMovieDetails() throws {
-        
         guard let stub = try MoviesStubManager.shared.moviesStub else {
-            return      XCTFail("Failed to load  Response stub from json file.")
+            return XCTFail("Failed to load Response stub from json file.")
         }
         usecaseMock.given(.executeFetchData(willReturn: stub))
         let exp = expectation(description: "response")
         
         sut.moviesListObserver.dropFirst().sink { response  in
-                exp.fulfill()
+            exp.fulfill()
         }.store(in: &cancellables)
         
-        Task { await sut.fetchMovies()}
+        Task { await sut.fetchMovies() }
         
-        waitForExpectations(timeout: 2) { (error) in
+        waitForExpectations(timeout: 2) { error in
             if error != nil {
                 XCTFail("Did not fulfill expectations")
             }
@@ -104,3 +97,4 @@ final class MoviesListTests: XCTestCase {
         coordinatorMock.verify(.navigateToDetailsViewController(movieId: .any))
     }
 }
+

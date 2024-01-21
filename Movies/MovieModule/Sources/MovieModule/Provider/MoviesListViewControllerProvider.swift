@@ -19,13 +19,12 @@ class MoviesListViewControllerProvider: MoviesListViewControllerProviderProtocol
     }
     
     func getListViewController() -> UIViewController {
-        let viewModel =  self.resolver.resolve(MoviesListViewModel.self)!
-        return  MoviesListViewController(with: viewModel)
+        let viewModel = self.resolver.resolve(MoviesListViewModel.self)!
+        return MoviesListViewController(with: viewModel)
     }
     
     func getDetailsViewController(movieId: Int) -> UIViewController {
-        let viewModel =  self.resolver.resolve(MovieDetailsViewModel.self)!
-        return  MovieDetailsViewController(with: viewModel, movieId: movieId)
+        let viewModel = self.resolver.resolve(MovieDetailsViewModel.self)!
+        return MovieDetailsViewController(with: viewModel, movieId: movieId)
     }
-    
 }

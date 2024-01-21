@@ -32,5 +32,4 @@ class AppManager {
         self.navigationController.setViewControllers([provider.getListViewController()], animated: false)
         self.window?.rootViewController = self.navigationController
     }
-    
 }

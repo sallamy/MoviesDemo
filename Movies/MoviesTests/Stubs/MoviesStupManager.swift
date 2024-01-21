@@ -8,13 +8,11 @@
 import Foundation
 import MovieModule
 
-
 class BaseStubManager {
     var bundle: Bundle {
         .init(for: Self.self)
     }
 }
-
 
 class MoviesStubManager: BaseStubManager {
     
@@ -22,7 +20,6 @@ class MoviesStubManager: BaseStubManager {
     
     var moviesStub: MoviesListModel? {
         get throws {
-
             guard let bundlePath = bundle.path(forResource: "MoviesListStup", ofType: "json"),
                   let jsonData = try String(contentsOfFile: bundlePath).data(using: .utf8) else { return nil }
             let stub = try JSONDecoder().decode(MoviesListModel.self, from: jsonData)
@@ -32,7 +29,6 @@ class MoviesStubManager: BaseStubManager {
     
     var movieDetailsStub: Movie? {
         get throws {
-
             guard let bundlePath = bundle.path(forResource: "MoviesDetailsStup", ofType: "json"),
                   let jsonData = try String(contentsOfFile: bundlePath).data(using: .utf8) else { return nil }
             let stub = try JSONDecoder().decode(Movie.self, from: jsonData)

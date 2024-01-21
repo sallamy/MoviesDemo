@@ -14,17 +14,17 @@ public protocol MovieDetailsUseCaseInterface {
     func executeFetchDetails(movieId: Int) async throws -> Movie?
 }
 
-public class MovieDetailsUseCase: MovieDetailsUseCaseInterface  {
+public class MovieDetailsUseCase: MovieDetailsUseCaseInterface {
     private let repo: MovieDetailsRepositoryProtocol
     private var cancellables = Set<AnyCancellable>()
 
     public init(repo: MovieDetailsRepositoryProtocol) {
-         self.repo = repo
-     }
+        self.repo = repo
+    }
 
-    public  func executeFetchDetails(movieId: Int) async throws -> Movie? {
+    public func executeFetchDetails(movieId: Int) async throws -> Movie? {
         return try await withCheckedThrowingContinuation { continuation in
-            self.repo.getDetials(with: movieId).sink { completion in
+            self.repo.getDetails(with: movieId).sink { completion in
                 switch completion {
                 case .finished:
                     break
@@ -36,5 +36,4 @@ public class MovieDetailsUseCase: MovieDetailsUseCaseInterface  {
             }.store(in: &cancellables)
         }
     }
-
 }

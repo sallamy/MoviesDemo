@@ -11,11 +11,9 @@ import NetworkLayer
 import DependenciesModule
 import UIKit
 
-
 public struct MovieDIContainer {
 
-    public static func setup(_ container : Container,
-                             navigationController: UINavigationController) {
+    public static func setup(_ container: Container, navigationController: UINavigationController) {
         container.register(NetworkService.self) { _ in
             NetworkManager()
         }
@@ -51,10 +49,5 @@ public struct MovieDIContainer {
         container.register(MovieDetailsViewModel.self) { r in
             MovieDetailsViewModel(useCase: r.resolve(MovieDetailsUseCaseInterface.self)!)
         }
-
-      
-        
-    
-        
     }
 }
